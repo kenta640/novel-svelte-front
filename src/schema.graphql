@@ -1,0 +1,60 @@
+
+
+#login
+
+mutation loginMutation($email: String!, $password: String!) {
+  LoginUser(email: $email, password: $password) {
+    id
+    username
+    email
+    token
+  } 
+}
+
+#register
+
+mutation registerMutation($user: RegisterUserInput) {
+  RegisterUser(user: $user) {
+    username
+    token
+  }
+}
+
+
+#post
+
+  mutation postMutation($addPostId: String, $text: String) {
+      addPost(id: $addPostId, text: $text) {
+          
+          text
+          
+      }
+  }
+#query for all posts
+  query allPostsQuery{
+    allPosts{
+      text
+      user {
+        username
+      }
+    }
+  }
+
+
+#query posts
+#posts id are copied userid
+
+  query postsByIdQuery($postId: String!) {
+    postsById(id: $postId) {
+      id
+      text
+    }
+  }
+
+ 
+  query singleUserQuery($userId: String!) {
+    userById(id: $userId) {
+      username
+      email
+    }
+  }
