@@ -10,7 +10,7 @@
       let closed = false;
   
     const showPopup = () => {
-        if(userData==null){
+        if(userData===null){
             open(Popup, { message: "Login or sign up!" });
         }    
     };
@@ -35,17 +35,3 @@
           {/if}
       </div>
   </section>
-  
-  <style>
-      section {
-          padding-top: 0.5em;
-      }
-      
-      #state {
-          position: absolute;
-          top: 0;
-          right: 0;
-          opacity: 0.33;
-          font-size: 0.8em;
-      }
-  </style>

@@ -21,7 +21,7 @@ mutation registerMutation($user: RegisterUserInput) {
 }
 
 
-#post
+#post mutation
 
   mutation postMutation($addPostId: String, $text: String) {
       addPost(id: $addPostId, text: $text) {
@@ -30,10 +30,23 @@ mutation registerMutation($user: RegisterUserInput) {
           
       }
   }
+
+#add goodbye
+
+mutation addGoodMutation {
+  addGood {
+    good
+  }
+}
+
 #query for all posts
   query allPostsQuery{
     allPosts{
+      id
       text
+      good {
+        good
+      }
       user {
         username
       }
@@ -51,6 +64,7 @@ mutation registerMutation($user: RegisterUserInput) {
     }
   }
 
+ 
  
   query singleUserQuery($userId: String!) {
     userById(id: $userId) {

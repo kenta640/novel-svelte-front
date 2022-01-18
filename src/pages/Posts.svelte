@@ -2,17 +2,17 @@
 import { mutation, query } from "svelte-apollo";
 import { postMutation } from '../schema.graphql';
 import {userData} from "../components/stores"
-import {allPostsQuery} from "../schema.graphql"
+import {allPostsQuery, addGoodMutation} from "../schema.graphql"
 import Modal from "../components/Modal.svelte"
 import {modal} from "../components/stores"
 import SubmitButton from "../components/SubmitButton.svelte"
+import Icon from '@iconify/svelte';
 import Popup from '../components/Popup.svelte';
 import { getContext } from 'svelte';
     //Query posts by apollo query
     const allPosts = query(allPostsQuery)
     
     let textSubmitted;
-
     //Mutation
     const postText = mutation(postMutation)
 
@@ -22,7 +22,14 @@ import { getContext } from 'svelte';
         await postText({ variables: { addPostId: $userData.userId, text: textSubmitted} });
         textSubmitted=""
     }
-
+    //When a good button is pressed
+    const goodOnClick = async (e) => {
+        if (userData===null){
+            
+        }
+        console.log("You pressed a button")
+        await addGoodMutation()
+    }
 
 </script>
 
@@ -41,13 +48,41 @@ import { getContext } from 'svelte';
                 {#each $allPosts.data.allPosts as post}
                     <div class="box-border 
                     border-4 bg-gray-100 m4 hover:bg-gray-200">
+                    <div class="grid grid-cols-1">
                         <p class="text-green-600">
                             {post.user.username} 
                         </p>
-                            
-                        <p>
+                        
+                        <svg class="h-4 w-4 text-red-500"  
+                            viewBox="0 0 24 24"  
+                            fill="none"  
+                            stroke="currentColor"  
+                            stroke-width="2"  
+                            stroke-linecap="round"  
+                            stroke-linejoin="round">  
+                            <circle cx="12" cy="12" r="1" />  
+                            <circle cx="19" cy="12" r="1" />  
+                            <circle cx="5" cy="12" r="1" />
+                        </svg>
+                    </div>
+                        <p class="font-weight: 700">
                             {post.text}
                         </p>
+                        <div class="flex flex-row">
+                            <button type="button" onClick={goodOnClick}>
+                                <svg 
+                                    class="h-5 w-5 text-red-500"  
+                                    viewBox="0 0 24 24"  
+                                    fill="none"  
+                                    stroke="currentColor"  
+                                    stroke-width="2"  
+                                    stroke-linecap="round"  
+                                    stroke-linejoin="round">  
+                                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" />
+                                </svg>
+                            </button>
+                            {post.good.good}
+                        </div>
                     </div>
                 {/each}
             {/if}
@@ -55,7 +90,8 @@ import { getContext } from 'svelte';
         </div>
         <div>
             <textarea name="text" type="text" id="text" bind:value= {textSubmitted}
-            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"/>
+            class="w-full px-4 py-2 mt-2 border rounded-md 
+            focus:outline-none focus:ring-1 focus:ring-blue-600"/>
         </div>
         <Modal show={$modal}>
             <SubmitButton />
@@ -65,3 +101,5 @@ import { getContext } from 'svelte';
     </form>
 
 </main>
+
+

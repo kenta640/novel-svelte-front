@@ -6,7 +6,7 @@
     import Profile from "./pages/Profile.svelte"
     import Register from "./pages/Register.svelte"
     import Setting from "./pages/Setting.svelte"
-    import { InMemoryCache, ApolloClient } from '@apollo/client'; // ❶
+    import { InMemoryCache, ApolloClient } from '@apollo/client'; 
     import { mutation, setClient } from "svelte-apollo";
     export const client = new ApolloClient({
         uri: 'https://js-graphql-server.herokuapp.com/graphql',
@@ -51,11 +51,8 @@
       </PrivateRoute>
       
       <Route path="posts" component={Posts}>
+      </Route>
       
-      <Route path="setting">
-          <Setting />
-      </Route>
-      </Route>
     </main>
     <footer> 
       <Link to="register">Register</Link>
