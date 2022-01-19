@@ -8,8 +8,34 @@
     import Setting from "./pages/Setting.svelte"
     import { InMemoryCache, ApolloClient } from '@apollo/client'; 
     import { mutation, setClient } from "svelte-apollo";
+    
+    const httpLink = new HttpLink({
+      uri: 'https://js-graphql-server.herokuapp.com/graphql'
+    });
+    const wsLink = new WebSocketLink({
+      uri: `https://js-graphql-server.herokuapp.com/subscriptions`,
+      options: {
+        reconnect: true
+      }
+    });
+
+
+    const link = split(
+      // split based on operation type
+      ({ query }) => {
+        const definition = getMainDefinition(query);
+        return (
+          definition.kind === 'OperationDefinition' &&
+          definition.operation === 'subscription'
+        );
+      },
+      wsLink,
+      httpLink,
+    );
+    
+    
     export const client = new ApolloClient({
-        uri: 'https://js-graphql-server.herokuapp.com/graphql',
+        link,
         cache: new InMemoryCache({
           //prevent duplicated results
           dataIdFromObject: o => (o._id ? `${o.__typename}:${o._id}`: null),

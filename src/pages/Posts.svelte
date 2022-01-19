@@ -13,6 +13,7 @@ import { getContext } from 'svelte';
     const allPosts = query(allPostsQuery)
     
     let textSubmitted;
+    let postObjectId;
     //Mutation
     const postText = mutation(postMutation)
 
@@ -23,13 +24,9 @@ import { getContext } from 'svelte';
         textSubmitted=""
     }
     //When a good button is pressed
-    const goodOnClick = async (e) => {
-        if (userData===null){
-            
-        }
-        console.log("You pressed a button")
-        await addGoodMutation()
-    }
+
+    const addGood = mutation(addGoodMutation)
+    
 
 </script>
 
@@ -65,11 +62,15 @@ import { getContext } from 'svelte';
                             <circle cx="5" cy="12" r="1" />
                         </svg>
                     </div>
-                        <p class="font-weight: 700">
+                        <p>
                             {post.text}
                         </p>
                         <div class="flex flex-row">
-                            <button type="button" onClick={goodOnClick}>
+                            <button type="button" 
+                            on:click={async (e) => {
+                                console.log(post._id)
+                                await addGood({ variables:{postid: post._id}})
+                            }}>
                                 <svg 
                                     class="h-5 w-5 text-red-500"  
                                     viewBox="0 0 24 24"  
