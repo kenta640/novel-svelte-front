@@ -8,7 +8,10 @@
     import Setting from "./pages/Setting.svelte"
     import { InMemoryCache, ApolloClient } from '@apollo/client'; 
     import { mutation, setClient } from "svelte-apollo";
-    
+    import { split, HttpLink } from '@apollo/client';
+    import { getMainDefinition } from '@apollo/client/utilities';
+    import { WebSocketLink } from '@apollo/client/link/ws';
+
     const httpLink = new HttpLink({
       uri: 'https://js-graphql-server.herokuapp.com/graphql'
     });
