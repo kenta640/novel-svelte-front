@@ -5,12 +5,9 @@
     import Posts from "./pages/Posts.svelte"
     import Profile from "./pages/Profile.svelte"
     import Register from "./pages/Register.svelte"
-    import Setting from "./pages/Setting.svelte"
     import { InMemoryCache, ApolloClient } from '@apollo/client'; 
     import { mutation, setClient } from "svelte-apollo";
-    import { split, HttpLink } from '@apollo/client';
-    import { getMainDefinition } from '@apollo/client/utilities';
-    import { WebSocketLink } from '@apollo/client/link/ws';
+   
 
     
     export const client = new ApolloClient({
