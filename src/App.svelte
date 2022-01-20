@@ -12,33 +12,9 @@
     import { getMainDefinition } from '@apollo/client/utilities';
     import { WebSocketLink } from '@apollo/client/link/ws';
 
-    const httpLink = new HttpLink({
-      uri: 'https://js-graphql-server.herokuapp.com/graphql'
-    });
-    const wsLink = new WebSocketLink({
-      uri: `https://js-graphql-server.herokuapp.com/subscriptions`,
-      options: {
-        reconnect: true
-      }
-    });
-
-
-    const link = split(
-      // split based on operation type
-      ({ query }) => {
-        const definition = getMainDefinition(query);
-        return (
-          definition.kind === 'OperationDefinition' &&
-          definition.operation === 'subscription'
-        );
-      },
-      wsLink,
-      httpLink,
-    );
-    
     
     export const client = new ApolloClient({
-        link,
+        uri: 'https://js-graphql-server.herokuapp.com/graphql',
         cache: new InMemoryCache({
           //prevent duplicated results
           dataIdFromObject: o => (o._id ? `${o.__typename}:${o._id}`: null),
