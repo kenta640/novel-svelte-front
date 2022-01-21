@@ -1,7 +1,7 @@
 <script>
     import { getContext } from 'svelte';
     import Popup from '../components/Popup.svelte';
-    import {userData} from './stores'
+    import {userData} from '../components/stores'
     const { open } = getContext('simple-modal');
       
       let opening = false;
@@ -10,8 +10,9 @@
       let closed = false;
   
     const showPopup = () => {
-        if(userData===null){
-            open(Popup, { message: "Login or sign up!" });
+        console.log(userData.userName)
+        if(userData.userName==undefined){
+            //open(Popup, { message: "Login or sign up!" });
         }    
     };
       
@@ -35,3 +36,17 @@
           {/if}
       </div>
   </section>
+
+  <style>
+	section {
+		padding-top: 0.5em;
+	}
+	
+	#state {
+		position: absolute;
+		top: 0;
+		right: 0;
+		opacity: 0.33;
+		font-size: 0.8em;
+	}
+</style>

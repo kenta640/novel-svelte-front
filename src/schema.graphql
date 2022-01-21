@@ -25,9 +25,7 @@ mutation registerMutation($user: RegisterUserInput) {
 
   mutation postMutation($addPostId: String, $text: String) {
       addPost(id: $addPostId, text: $text) {
-          
           text
-          
       }
   }
 
@@ -45,6 +43,7 @@ mutation addGoodMutation($postid: String) {
       _id
       id
       text
+      #created
       good {
         good
       }
@@ -54,6 +53,13 @@ mutation addGoodMutation($postid: String) {
     }
   }
 
+#Delete post mutation
+mutation deletePostMutation($postId: String, $userId: String) {
+  deletePost(_id: $postId, id: $userId) {
+    _id
+    id
+  }
+}
 
 #query posts
 #posts id are copied userid
@@ -73,3 +79,4 @@ mutation addGoodMutation($postid: String) {
       email
     }
   }
+

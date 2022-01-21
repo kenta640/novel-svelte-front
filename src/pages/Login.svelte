@@ -28,7 +28,7 @@
       userToken = userDetail.data.LoginUser.token
       userId = userDetail.data.LoginUser.id
       
-      $userData = { userId, userToken, userName, userEmail, userPassword };
+      $userData = { userId, userToken, userName: userName, userEmail, userPassword };
       
       //User will be directed only they have their username in $user cache
       if ($userData.userToken) {
