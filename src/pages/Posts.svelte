@@ -37,11 +37,11 @@ import { getContext } from 'svelte';
     
     <form on:submit|preventDefault={onSubmit}>
         <h3>Posts</h3>
-        <div class = "grid grid-cols-3 h-full">
-            <div>
+        <div class = "grid grid-cols-4 gap-4 h-70v">
+            <div class ="col-span-1">
 
             </div>
-            <div class = "overflow-y-auto">
+            <div class = "overflow-y-auto col-span-2">
             
                 {#if $allPosts.loading}
                 <p>Loading...</p>
@@ -95,6 +95,7 @@ import { getContext } from 'svelte';
                 {/if}
             
             </div>
+            <div class ="col-span-1"></div>
         </div>
         <div>
             <textarea name="text" type="text" id="text" bind:value= {textSubmitted}
