@@ -23,11 +23,11 @@
   <Router basepath="/">
     <header>
   
-      <nav class=" bg-gradient-to-r from-pink-500 to-violet-500 h-12">
-        <button class="bg-orange-500"><Link to="/">Home</Link></button>
-        <button><Link to="profile">Profile</Link></button>
-        <button><Link to="posts">Posts</Link></button>
-        <button><Link to="setting">Setting</Link></button>
+      <nav class="h-56 grid grid-cols-4 h-12">
+        <button class="bg-orange-500 hover:bg-orange-600"><Link to="/">Home</Link></button>
+        <button class="bg-orange-500 hover:bg-orange-600"><Link to="profile">Profile</Link></button>
+        <button class="bg-orange-500 hover:bg-orange-600"><Link to="posts">Posts</Link></button>
+        <button class="bg-orange-500 hover:bg-orange-600"><Link to="setting">Setting</Link></button>
       </nav>
     </header>
   
