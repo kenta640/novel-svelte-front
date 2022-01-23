@@ -23,12 +23,11 @@
   <Router basepath="/">
     <header>
   
-      <nav class=" bg-gradient-to-r from-pink-500 to-violet-500">
-        <Link to="/">Home</Link>
-        
-        <Link to="profile">Profile</Link>
-        <Link to="posts">Posts</Link>
-        <Link to="setting">Setting</Link>
+      <nav class=" bg-gradient-to-r from-pink-500 to-violet-500 h-12">
+        <button class="bg-orange-500"><Link to="/">Home</Link></button>
+        <button><Link to="profile">Profile</Link></button>
+        <button><Link to="posts">Posts</Link></button>
+        <button><Link to="setting">Setting</Link></button>
       </nav>
     </header>
   

@@ -35,18 +35,29 @@
         navigate(from, { replace: true });
     }
     
+
     
 }
 </script>
 
 <main>
+    <div class = "grid grid-cols-4 gap-4 h-70v">
+    <div></div>
+    <div>
     <form on:submit|preventDefault={onSubmit}>
+        {#if userPassword!=confirmPassword}
+            <span>Password doesn't match</span>
+        {/if}
+        {#if userEmail.includes("@")}
+            <span>Check your email address</span>
+        {/if}
         <div>
             <label for="name">userName</label>
             <input
               type="username"
               id="username"
               name="username"
+              class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
               bind:value= {userName}
             />
         </div>
@@ -56,6 +67,7 @@
             type="email"
             id="email"
             name="email"
+            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
             bind:value= {userEmail}
             />
         </div>
@@ -65,6 +77,7 @@
             type="password"
             id="password"
             name="password"
+            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
             bind:value={userPassword}
         />
         <div>
@@ -73,9 +86,16 @@
             type="password"
             id="password"
             name="password"
+            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
             bind:value={confirmPassword}
             />
-        <button type="submit" >Register!</button>
+        <button type="submit" class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900" >
+            Register!
+        </button>
     </form>
+    </div>
+    <div>
 
+    </div>
+</div>
 </main>

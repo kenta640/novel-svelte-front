@@ -41,16 +41,27 @@ import { getContext } from 'svelte';
             <div class ="col-span-1">
 
             </div>
-            <div class = "overflow-y-auto col-span-2">
+            <div class = "overflow-x-clip overflow-y-auto col-span-2">
             
                 {#if $allPosts.loading}
-                <p>Loading...</p>
+                    <div class="
+                    spinner-border
+                    animate-spin
+                    inline-block
+                    w-8
+                    h-8
+                    border-4
+                    rounded-full
+                    text-blue-500
+                " role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
                 {:else if $allPosts.error}
                 <p>Error: {$allPosts.error.message}</p>
                 {:else}
                     {#each $allPosts.data.allPosts as post}
                         <div class="box-border 
-                        border-4 bg-gray-100 m4 hover:bg-gray-200">
+                        border-4 bg-gray-100 hover:bg-gray-200">
                         <div class="flex flex-row items-stretch">
                             <button class="text-green-600" type="button">
                                 {post.user.username} 
@@ -69,7 +80,7 @@ import { getContext } from 'svelte';
                                 </svg>
                             </button>
                         </div>
-                            <p>
+                            <p class="break-words">
                                 {post.text}
                             </p>
                             <div class="flex flex-row">
