@@ -48,7 +48,7 @@
         {#if userPassword!=confirmPassword}
             <span>Password doesn't match</span>
         {/if}
-        {#if userEmail.includes("@")}
+        {#if !userEmail.includes("@")}
             <span>Check your email address</span>
         {/if}
         <div>

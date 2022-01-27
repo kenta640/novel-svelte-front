@@ -21,13 +21,28 @@ mutation registerMutation($user: RegisterUserInput) {
 }
 
 
-#post mutation
+  #post mutation
 
   mutation postMutation($addPostId: String, $text: String) {
       addPost(id: $addPostId, text: $text) {
           text
       }
   }
+
+  #post subscription
+  subscription postAddedSubscription {
+    postAdded {
+      text
+      user {
+        username
+      }
+      good {
+        postid
+        good
+      }
+    }
+  }
+
 
 #add goodbye
 

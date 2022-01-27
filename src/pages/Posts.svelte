@@ -2,7 +2,7 @@
 import { mutation, query, subscribe} from "svelte-apollo";
 import { postMutation, deletePostMutation } from '../schema.graphql';
 import {userData} from "../components/stores"
-import {allPostsQuery, addGoodMutation} from "../schema.graphql"
+import {allPostsQuery, addGoodMutation, postAddedSubscription} from "../schema.graphql"
 import Modal from "../components/Modal.svelte"
 import {modal} from "../components/stores"
 import SubmitButton from "../components/SubmitButton.svelte"
@@ -15,6 +15,7 @@ import { getContext } from 'svelte';
     let textSubmitted;
     let postObjectId
     //Mutations
+    const postAdded = subscribe(postAddedSubscription)
     const postText = mutation(postMutation)
     const addGood = mutation(addGoodMutation)
     const deletePost = mutation(deletePostMutation)
@@ -36,7 +37,7 @@ import { getContext } from 'svelte';
 <main>
     
     <form on:submit|preventDefault={onSubmit}>
-        <h3>Posts</h3>
+
         <div class = "grid grid-cols-4 gap-4 h-70v">
             <div class ="col-span-1">
 
@@ -58,28 +59,28 @@ import { getContext } from 'svelte';
                 </div>
                 {:else if $allPosts.error}
                 <p>Error: {$allPosts.error.message}</p>
-                {:else}
+                {:else if $allPosts.data}
                     {#each $allPosts.data.allPosts as post}
                         <div class="box-border 
                         border-4 bg-gray-100 hover:bg-gray-200">
-                        <div class="flex flex-row items-stretch">
-                            <button class="text-green-600" type="button">
-                                {post.user.username} 
-                            </button>
-                            <button type="button">
-                                <svg class="h-4 w-4 text-red-500"  
-                                    viewBox="0 0 24 24"  
-                                    fill="none"  
-                                    stroke="currentColor"  
-                                    stroke-width="2"  
-                                    stroke-linecap="round"  
-                                    stroke-linejoin="round">  
-                                    <circle cx="12" cy="12" r="1" />  
-                                    <circle cx="19" cy="12" r="1" />  
-                                    <circle cx="5" cy="12" r="1" />
-                                </svg>
-                            </button>
-                        </div>
+                            <div class="flex flex-row items-stretch">
+                                <button class="text-green-600" type="button">
+                                    {post.user.username} 
+                                </button>
+                                <button type="button">
+                                    <svg class="h-4 w-4 text-red-500"  
+                                        viewBox="0 0 24 24"  
+                                        fill="none"  
+                                        stroke="currentColor"  
+                                        stroke-width="2"  
+                                        stroke-linecap="round"  
+                                        stroke-linejoin="round">  
+                                        <circle cx="12" cy="12" r="1" />  
+                                        <circle cx="19" cy="12" r="1" />  
+                                        <circle cx="5" cy="12" r="1" />
+                                    </svg>
+                                </button>
+                            </div>
                             <p class="break-words">
                                 {post.text}
                             </p>
@@ -104,10 +105,7 @@ import { getContext } from 'svelte';
                         </div>
                     {/each}
                 {/if}
-            
-            </div>
-            <div class ="col-span-1"></div>
-        </div>
+
         <div>
             <textarea name="text" type="text" id="text" bind:value= {textSubmitted}
             class="w-full px-4 py-2 mt-2 border rounded-md 
