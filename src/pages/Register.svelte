@@ -45,12 +45,7 @@
     <div></div>
     <div>
     <form on:submit|preventDefault={onSubmit}>
-        {#if userPassword!=confirmPassword}
-            <span>Password doesn't match</span>
-        {/if}
-        {#if !userEmail.includes("@")}
-            <span>Check your email address</span>
-        {/if}
+
         <div>
             <label for="name">userName</label>
             <input

@@ -68,6 +68,21 @@ mutation addGoodMutation($postid: String) {
     }
   }
 
+# Post by Object Id
+
+
+query postByObjIdQuery($_id: String!) {
+  postByObjId(_id: $_id) {
+    text
+    user {
+      username
+    }
+    good {
+      good
+    }
+  }
+}
+
 #Delete post mutation
 mutation deletePostMutation($postId: String, $userId: String) {
   deletePost(_id: $postId, id: $userId) {
