@@ -1,4 +1,5 @@
 <script>
+
 import { mutation, query, subscribe} from "svelte-apollo";
 import { postMutation, deletePostMutation } from '../schema.graphql';
 import {userData} from "../components/stores"
@@ -8,7 +9,13 @@ import {modal} from "../components/stores"
 import SubmitButton from "../components/SubmitButton.svelte"
 import Icon from '@iconify/svelte';
 import Popup from '../components/Popup.svelte';
-import { getContext } from 'svelte';
+
+      
+      let opening = false;
+      let opened = false;
+      let closing = false;
+      let closed = false;
+
     //Query posts by apollo query
     const allPosts = query(allPostsQuery)
     
@@ -31,6 +38,13 @@ import { getContext } from 'svelte';
         
         await deletePost({variables: {postId: postObjectId, userId: $userData.userId}})
     }
+
+    const showPopup = () => {
+        console.log(userData.userName)
+        if(!userData){
+            open(Popup, { message: "Login or sign up!" });
+        }    
+    };
 </script>
 
 
@@ -110,7 +124,22 @@ import { getContext } from 'svelte';
             focus:outline-none focus:ring-1 focus:ring-blue-600"/>
         
             <Modal show={$modal}>
-                <SubmitButton />
+                <button on:click={showPopup} type="submit" 
+                    class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg 
+                    hover:bg-blue-900">Submit!
+                </button>
+                    <div id="state">
+                        {#if opening}
+                            <p>opening modal...</p>
+                        {:else if opened}
+                            <p>opened modal!</p>
+                        {:else if closing}
+                            <p>closing modal...</p>
+                        {:else if closed}
+                            <p>closed modal!</p>
+                        {/if}
+                    </div>
+              <br/>
             </Modal>
         </div>
         <br/>

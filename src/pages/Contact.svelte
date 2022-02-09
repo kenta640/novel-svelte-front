@@ -1,0 +1,7 @@
+<svelte>
+
+</svelte>
+
+<main>
+
+</main>
