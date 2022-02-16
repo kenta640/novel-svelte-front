@@ -1,5 +1,6 @@
 <script>
     import { Router, Route, Link } from "svelte-navigator";
+    import Home from "./pages/Home.svelte"
     import Login from "./pages/Login.svelte";
     import PrivateRoute from "./components/PrivateRoute.svelte";
     import Posts from "./pages/Posts.svelte"
@@ -39,7 +40,7 @@
   
       <Route path="/">
         <h3>Home</h3>
-        <p>Home sweet home...</p>
+        <Home/>
       </Route>
   
       <Route path="register" let:location>

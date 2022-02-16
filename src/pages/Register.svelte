@@ -76,7 +76,7 @@
             bind:value={userPassword}
         />
         <div>
-            <label for="name">Password</label>
+            <label for="name"> Confirm Password</label>
             <input
             type="password"
             id="password"

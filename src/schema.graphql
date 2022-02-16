@@ -68,6 +68,22 @@ mutation addGoodMutation($postid: String) {
     }
   }
 
+#query for all posts
+  query topPostsQuery{
+    topPosts{
+      _id
+      id
+      text
+      #created
+      good {
+        good
+      }
+      user {
+        username
+      }
+    }
+  }
+
 # Post by Object Id
 
 

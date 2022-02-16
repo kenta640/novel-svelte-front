@@ -3,7 +3,7 @@
 import { mutation, query, subscribe} from "svelte-apollo";
 import { postMutation, deletePostMutation } from '../schema.graphql';
 import {userData} from "../components/stores"
-import {allPostsQuery, addGoodMutation, postAddedSubscription} from "../schema.graphql"
+import {topPostsQuery, addGoodMutation, postAddedSubscription} from "../schema.graphql"
 import Modal from "../components/Modal.svelte"
 import {modal} from "../components/stores"
 import SubmitButton from "../components/SubmitButton.svelte"
@@ -17,7 +17,7 @@ import Popup from '../components/Popup.svelte';
       let closed = false;
 
     //Query posts by apollo query
-    const allPosts = query(allPostsQuery)
+    const topPosts = query(topPostsQuery)
     
     let textSubmitted;
     let postObjectId
@@ -53,9 +53,10 @@ import Popup from '../components/Popup.svelte';
     <form on:submit|preventDefault={onSubmit}>
 
         <div class = "grid grid-cols-4 gap-4 h-70v">
+            <div></div>
             <div class = "overflow-x-clip overflow-y-auto col-span-2">
             
-                {#if $allPosts.loading}
+                {#if $topPosts.loading}
                     <div class="
                     spinner-border
                     animate-spin
@@ -68,10 +69,10 @@ import Popup from '../components/Popup.svelte';
                 " role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
-                {:else if $allPosts.error}
-                <p>Error: {$allPosts.error.message}</p>
-                {:else if $allPosts.data}
-                    {#each $allPosts.data.allPosts as post}
+                {:else if $topPosts.error}
+                <p>Error: {$topPosts.error.message}</p>
+                {:else if $topPosts.data}
+                    {#each $topPosts.data.topPosts as post}
                         <div class="box-border 
                         border-4 bg-gray-100 hover:bg-gray-200">
                             <div class="flex flex-row items-stretch">
@@ -117,31 +118,30 @@ import Popup from '../components/Popup.svelte';
                     {/each}
                 {/if}
             </div>
-        
-        
-            <textarea name="text" type="text" id="text" bind:value= {textSubmitted}
-            class="w-full px-4 py-2 mt-2 border rounded-md 
-            focus:outline-none focus:ring-1 focus:ring-blue-600"/>
-        
-            <Modal show={$modal}>
-                <button on:click={showPopup} type="submit" 
-                    class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg 
-                    hover:bg-blue-900">Submit!
-                </button>
-                    <div id="state">
-                        {#if opening}
-                            <p>opening modal...</p>
-                        {:else if opened}
-                            <p>opened modal!</p>
-                        {:else if closing}
-                            <p>closing modal...</p>
-                        {:else if closed}
-                            <p>closed modal!</p>
-                        {/if}
-                    </div>
-              <br/>
-            </Modal>
         </div>
+
+        <textarea name="text" type="text" id="text" bind:value= {textSubmitted}
+        class="w-full px-4 py-2 mt-2 border rounded-md 
+        focus:outline-none focus:ring-1 focus:ring-blue-600"/>
+    
+        <Modal show={$modal}>
+            <button on:click={showPopup} type="submit" 
+                class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg 
+                hover:bg-blue-900">Submit!
+            </button>
+                <div id="state">
+                    {#if opening}
+                        <p>opening modal...</p>
+                    {:else if opened}
+                        <p>opened modal!</p>
+                    {:else if closing}
+                        <p>closing modal...</p>
+                    {:else if closed}
+                        <p>closed modal!</p>
+                    {/if}
+                </div>
+          <br/>
+        </Modal>
         <br/>
 
     </form>
