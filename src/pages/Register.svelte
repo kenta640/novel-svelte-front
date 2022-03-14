@@ -27,7 +27,7 @@
     const registerDetail = await register({variables:{ "user": {username: userName, email: userEmail, password: userPassword}}})
 
     userToken = registerDetail.data.RegisterUser.token
-    console.log(registerDetail.data.RegisterUser.token)
+    console.log(userName)
     $userData = { userToken, userName, userEmail, userPassword, confirmPassword}
 
     if ($userData.userToken) {
