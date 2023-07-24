@@ -24,6 +24,10 @@
     
       //handleLogin(userEmail, userPassword);
       const userDetail = await login({ variables: { email: userEmail, password: userPassword } });    
+      if(userEmail=="user@example.com"||password=="user"){
+
+      }
+      
       userName = userDetail.data.LoginUser.username
       userToken = userDetail.data.LoginUser.token
       userId = userDetail.data.LoginUser.id
